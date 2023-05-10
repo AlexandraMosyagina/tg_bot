@@ -47,8 +47,15 @@ def test_keyboard(message):
 
 
 @bot.callback_query_handler(func=lambda call: 'message_' in call.data)
-def callback_func(call):
-    bot.send_message(call.message.chat.id, 'Shit, here we go again...')
+def callback_func_one(call):
+    keyboard = types.InlineKeyboardButton('Lol2', callback_data='call_message_1')
+    reply_markup = types.InlineKeyboardMarkup()
+    reply_markup.add(keyboard)
+    bot.send_message(call.from_user.id, "Push the button!", reply_markup=reply_markup)
+
+@bot.callback_query_handler(func=lambda call: 'call_message' in call.data)
+def callback_func_one(call):
+    bot.send_message(call.message.chat.id, 'Kek, it is working!')
 
 
 if __name__ == '__main__':
